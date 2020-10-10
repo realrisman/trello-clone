@@ -22,7 +22,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "commit": "clear && git-cz"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@typescript-eslint/eslint-plugin": "2.x",
     "@typescript-eslint/parser": "2.x",
     "babel-eslint": "10.x",
@@ -53,12 +56,14 @@
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "2.x",
+    "git-cz": "^4.7.1",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "prettier": "^2.1.2"
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
@@ -66,8 +71,12 @@
     "src/**/*.{js,ts,tsx}": [
       "prettier --config .prettierrc --write",
       "eslint --fix \"src/**/*.{ts,tsx}\"",
-      "eslint \"src/**/*.{ts,tsx}\"",
-      "git add"
+      "eslint \"src/**/*.{ts,tsx}\""
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
     ]
   }
 }
