@@ -1,0 +1,18 @@
+import React, { useState } from 'react';
+
+import { NewItemButton, NewItemFormContainer, NewItemInput } from './styles';
+
+type NewItemFormProps = {
+  onAdd(text: string): void;
+};
+
+export const NewItemForm = (props: NewItemFormProps) => {
+  const [text, setText] = useState('');
+
+  return (
+    <NewItemFormContainer>
+      <NewItemInput value={text} onChange={(e: any) => setText(e.target.value)} />
+      <NewItemButton onClick={() => props.onAdd(text)}>Create</NewItemButton>
+    </NewItemFormContainer>
+  );
+};
