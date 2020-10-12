@@ -11,7 +11,7 @@ type AddNewItemProps = {
 
 export const AddNewItem = (props: AddNewItemProps) => {
   const [showForm, setShowForm] = useState(false);
-  const { onAdd, toggleButtonText } = props;
+  const { onAdd, toggleButtonText, dark } = props;
 
   if (showForm) {
     return (
@@ -24,5 +24,9 @@ export const AddNewItem = (props: AddNewItemProps) => {
     );
   }
 
-  return <AddItemButton onClick={() => setShowForm(true)}>{toggleButtonText}</AddItemButton>;
+  return (
+    <AddItemButton dark={dark} onClick={() => setShowForm(true)}>
+      {toggleButtonText}
+    </AddItemButton>
+  );
 };
