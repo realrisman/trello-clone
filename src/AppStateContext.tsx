@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 
 type Task = {
   id: string;
@@ -37,14 +37,49 @@ const appData: AppState = {
 
 type AppStateContextProps = {
   state: AppState;
+  dispatch: React.Dispatch<never>;
 };
 
 const AppStateContext = createContext<AppStateContextProps>({} as AppStateContextProps);
 
-export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  return <AppStateContext.Provider value={{ state: appData }}>{children}</AppStateContext.Provider>;
-};
-
 export const useAppState = () => {
   return useContext(AppStateContext);
+};
+
+type Action =
+  | {
+      type: 'ADD_LIST';
+      payload: string;
+    }
+  | {
+      type: 'ADD_TASK';
+      payload: { text: string; taskId: string };
+    };
+
+const appStateReducer = (state: AppState, action: Action): AppState => {
+  switch (action.type) {
+    case 'ADD_LIST': {
+      // Reducer logic here...
+      return {
+        ...state,
+      };
+    }
+    case 'ADD_TASK': {
+      // Reducer logic here...
+      return {
+        ...state,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const AppStateProvider = ({ children }: React.PropsWithChildren<{}>) => {
+  const [state, dispatch] = useReducer(appStateReducer, appData);
+
+  return (
+    <AppStateContext.Provider value={{ state, dispatch }}>{children}</AppStateContext.Provider>
+  );
 };
