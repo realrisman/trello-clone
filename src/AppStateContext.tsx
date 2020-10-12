@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
+import { v4 as uuid } from 'uuid';
 
 type Task = {
   id: string;
@@ -59,9 +60,9 @@ type Action =
 const appStateReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
     case 'ADD_LIST': {
-      // Reducer logic here...
       return {
         ...state,
+        lists: [...state.lists, { id: uuid(), text: action.payload, tasks: [] }],
       };
     }
     case 'ADD_TASK': {
